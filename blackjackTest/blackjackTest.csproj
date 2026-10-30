@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\blackjack\blackjack.csproj" />
+     <ProjectReference Include="..\AvaloniaBlackjack/AvaloniaBlackjack.csproj" />
   </ItemGroup>
 
 </Project>
