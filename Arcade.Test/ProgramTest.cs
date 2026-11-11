@@ -1,8 +1,10 @@
 using Blackjack;
 
-namespace blackjackTest;
+namespace Arcade.Test;
+
 public class ProgramTest {
 
+    
     [Fact]
     public void gameTest() {
         Console.SetIn(new StringReader("3\njhon\nJane\nJack\n2\n20\n30\n40"));

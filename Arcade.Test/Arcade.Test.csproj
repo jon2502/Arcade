@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\blackjack\blackjack.csproj" />
-     <ProjectReference Include="..\AvaloniaBlackjack/AvaloniaBlackjack.csproj" />
+    <ProjectReference Include="../Arcade.ConsoleApp/Arcade.ConsoleApp.csproj" />
+     <ProjectReference Include="../Arcade.DesktopApp/Arcade.DesktopApp.csproj" />
   </ItemGroup>
 
 </Project>

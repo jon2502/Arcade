@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="AvaloniaBlackjack/AvaloniaBlackjack.csproj" />
-  <Project Path="blackjack/blackjack.csproj" />
-  <Project Path="blackjackTest/blackjackTest.csproj" />
-</Solution>

@@ -1,7 +1,7 @@
 using Blackjack;
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace blackjackTest;
+namespace Arcade.Test;
 
 public class DealerTest {
 

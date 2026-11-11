@@ -1,6 +1,6 @@
 using Blackjack;
 
-namespace blackjackTest;
+namespace Arcade.Test;
 
 public class DeckTest {
     [Theory]

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Arcade.ConsoleApp/Arcade.ConsoleApp.csproj" />
+  <Project Path="Arcade.DesktopApp/Arcade.DesktopApp.csproj" />
+  <Project Path="Arcade.Test/Arcade.Test.csproj" />
+</Solution>
