@@ -3,6 +3,14 @@ using Blackjack;
 namespace Arcade.Test;
 
 public class DeckTest {
+
+    private Deck blackjackdeck;
+
+    [SetUp]
+    public void SetUp() {
+        blackjackdeck = new Deck();
+    }
+
     [TestCase("1")]
     [TestCase("2")]
     [TestCase("3")]
@@ -13,7 +21,6 @@ public class DeckTest {
     [TestCase("8")]
 
     public void DeckSelectionTest(string input){
-        Deck blackjackdeck = new Deck();
         Console.SetIn(new StringReader($"\n10\n9\ny\n0\n-1\n{input}"));
         blackjackdeck.SetDecksize();
         int intValue = Int32.Parse(input);
@@ -23,18 +30,17 @@ public class DeckTest {
 
     [Test]
     public void DeckGenerationtest(){
-        Deck testdeck = new Deck();
-        bool result = testdeck.CreateDeck();
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        bool result = blackjackdeck.CreateDeck();
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Suit == "♦"
         ));
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Suit == "♣"
         ));        
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Suit == "♥"
         ));        
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Suit == "♠"
         ));
         Assert.True(result);
@@ -42,37 +48,35 @@ public class DeckTest {
 
     [Test]
     public void DeckGenerationtestfail(){
-        Deck testdeck = new Deck();
-        testdeck.PlayingCards = new string[] {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        bool result = testdeck.CreateDeck();
-        Assert.IsEmpty(testdeck.deck);
+        blackjackdeck.PlayingCards = new string[] {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        bool result = blackjackdeck.CreateDeck();
+        Assert.IsEmpty(blackjackdeck.deck);
         Assert.False(result);
     }
 
     [Test]
     public void DeckGenerationtesparsefail(){
-        Deck testdeck = new Deck();
-        testdeck.PlayingCards  = new string[]  {"2", "3", "4", "test", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        bool result = testdeck.CreateDeck();
+        blackjackdeck.PlayingCards  = new string[]  {"2", "3", "4", "test", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        bool result = blackjackdeck.CreateDeck();
         Assert.False(result);
 
-        testdeck.CreateDeck();
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        blackjackdeck.CreateDeck();
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Rank == "2"
         ));
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Rank == "3"
         ));        
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Rank == "4"
         ));        
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Value == 11
         ));        
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Suit == "♦"
         ));
-        Assert.AreEqual(52, testdeck.deck.Count);
+        Assert.AreEqual(52, blackjackdeck.deck.Count);
     }
 
     [TestCase("0")]
@@ -80,33 +84,30 @@ public class DeckTest {
     [TestCase("11")]
     [TestCase("12")]
     public void DeckGenerationValueOverandUnder(string value){
-        Deck testdeck = new Deck();
-        testdeck.PlayingCards = new  string[] {value, "3", "4", "test", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        bool result = testdeck.CreateDeck();
+        blackjackdeck.PlayingCards = new  string[] {value, "3", "4", "test", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        bool result = blackjackdeck.CreateDeck();
         Assert.False(result);
 
-        testdeck.CreateDeck();
-        Assert.That(testdeck.deck, Has.Some.Matches<Card>(
+        blackjackdeck.CreateDeck();
+        Assert.That(blackjackdeck.deck, Has.Some.Matches<Card>(
             card => card.Rank == "2"
         ));
-        Assert.That(testdeck.deck, Has.None.Matches<Card>(
+        Assert.That(blackjackdeck.deck, Has.None.Matches<Card>(
             card => card.Rank == value
         ));
-        Assert.AreEqual(52, testdeck.deck.Count);
+        Assert.AreEqual(52, blackjackdeck.deck.Count);
     }
 
     [Test]
     public void TestingtwoDecks() {
-        Deck testdeck = new Deck();
-        testdeck.DeckSize = 2;
-        testdeck.CreateDeck();
-        Assert.AreEqual(104, testdeck.deck.Count);
+        blackjackdeck.DeckSize = 2;
+        blackjackdeck.CreateDeck();
+        Assert.AreEqual(104, blackjackdeck.deck.Count);
     }
 
     [Test]
     public void EmptyDeckTest() {
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         game.blackjackdeck.CreateDeck();
         game.blackjackdeck.DeckSize = 1;
 
@@ -115,7 +116,7 @@ public class DeckTest {
         game.SetPlayerNames();
 
         for (int i = 0; i < 100; i++){
-            Card card = testdeck.DrawCard();
+            Card card = blackjackdeck.DrawCard();
             game.players[0].DrawACard(card, 0);
         }
 

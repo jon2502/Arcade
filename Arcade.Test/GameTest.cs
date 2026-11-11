@@ -3,10 +3,17 @@ using Blackjack;
 namespace Arcade.Test;
 
 public class GameTest {
+
+    private Deck blackjackdeck;
+
+    [SetUp]
+    public void SetUp() {
+        blackjackdeck = new Deck();
+    }
+
     [Test]
     public void PlayerBlackjackTest() {
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane\n10\n20"));
         game.PlayerCount=2;
         game.SetPlayerNames();
@@ -55,8 +62,7 @@ public class GameTest {
 
     [Test]
      public void PlayerBustTest(){
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane\n10\n20"));
         game.PlayerCount = 2;
         game.SetPlayerNames();
@@ -129,8 +135,7 @@ public class GameTest {
 
     [Test]
     public void GameDone() {
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane"));
         game.PlayerCount=2;
         game.SetPlayerNames();
@@ -153,8 +158,7 @@ public class GameTest {
 
     [Test]
     public void CheckIfNewRoundBegins(){
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane"));
         game.PlayerCount = 2;
         game.SetPlayerNames();
@@ -175,8 +179,7 @@ public class GameTest {
 
     [Test]
    public void ResultTest(){
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane\nJack\n10\n40\n30\n100"));
         game.PlayerCount=3;
 
@@ -256,8 +259,7 @@ public class GameTest {
 
     [Test]
     public void CanPlayersContinuetest(){
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
         game.PlayerCount = 5;
         game.SetPlayerNames();
@@ -274,8 +276,7 @@ public class GameTest {
 
     [Test]
     public void PlayersWantToContinueTest() {
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         game.PlayerCount = 5;
         Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
 
@@ -291,8 +292,7 @@ public class GameTest {
 
     [Test]
     public void CheckIfnewPlayersJoinTest(){
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
         game.PlayerCount = 5;
         game.SetPlayerNames();
@@ -336,14 +336,13 @@ public class GameTest {
             Value = 5,
         };
 
-        Deck testdeck = new Deck();
-        testdeck.deck.Add(two);
-        testdeck.deck.Add(three);
-        testdeck.deck.Add(queen);
-        testdeck.deck.Add(ace);
-        testdeck.deck.Add(five);
+        blackjackdeck.deck.Add(two);
+        blackjackdeck.deck.Add(three);
+        blackjackdeck.deck.Add(queen);
+        blackjackdeck.deck.Add(ace);
+        blackjackdeck.deck.Add(five);
 
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane\ny\nn\nn\nn"));
         game.PlayerCount = 2;
         game.SetPlayerNames();

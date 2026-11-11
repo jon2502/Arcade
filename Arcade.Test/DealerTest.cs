@@ -4,11 +4,16 @@ namespace Arcade.Test;
 
 public class DealerTest {
 
+    private Deck blackjackdeck;
+
+    [SetUp]
+    public void SetUp() {
+        blackjackdeck = new Deck();
+    }
+
     [Test]
     public void DealerBlackjackTest(){
-        
-        Deck testdeck = new Deck();
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
         Console.SetIn(new StringReader("Aiden\nJane\n10\n20\ny\n5\ny\n10\ny\n5\ny\n10"));
         game.PlayerCount = 2;
         game.SetPlayerNames();
@@ -109,14 +114,13 @@ public class DealerTest {
             Value = 5,
         };
 
-        Deck testdeck = new Deck();
-        testdeck.deck.Add(two);
-        testdeck.deck.Add(three);
-        testdeck.deck.Add(queen);
-        testdeck.deck.Add(ace);
-        testdeck.deck.Add(five);
+        blackjackdeck.deck.Add(two);
+        blackjackdeck.deck.Add(three);
+        blackjackdeck.deck.Add(queen);
+        blackjackdeck.deck.Add(ace);
+        blackjackdeck.deck.Add(five);
 
-        BlackJack game = new BlackJack(testdeck);
+        BlackJack game = new BlackJack(blackjackdeck);
 
         Card four = new Card {
             Suit = "♠",
@@ -137,7 +141,7 @@ public class DealerTest {
         game.DealerHitLoop();
 
 
-        Assert.AreEqual(3, testdeck.deck.Count);
+        Assert.AreEqual(3, blackjackdeck.deck.Count);
         Assert.AreEqual(19, game.dealer.Hand[0].Sum(card => card.Value));
 
         game.dealer.Hand[0].Clear();
@@ -146,7 +150,7 @@ public class DealerTest {
         
         game.DealerHitLoop();
 
-        Assert.AreEqual(2, testdeck.deck.Count);
+        Assert.AreEqual(2, blackjackdeck.deck.Count);
         Assert.AreEqual(24, game.dealer.Hand[0].Sum(card => card.Value));
     }
 
