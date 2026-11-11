@@ -22,7 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="../Arcade.ConsoleApp/Arcade.ConsoleApp.csproj" />
-     <ProjectReference Include="../Arcade.DesktopApp/Arcade.DesktopApp.csproj" />
+    <ProjectReference Include="../Arcade.DesktopApp/Arcade.DesktopApp.csproj" />
+    <ProjectReference Include="../Arcade.Library/Arcade.Library.csproj" />
   </ItemGroup>
 
 </Project>

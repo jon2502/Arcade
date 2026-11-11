@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Arcade.Library/Arcade.Library.csproj" />
+  </ItemGroup>
+
 </Project>
