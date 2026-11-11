@@ -3,7 +3,7 @@ using Blackjack;
 namespace Arcade.Test;
 
 public class GameTest {
-    [Fact]
+    [Test]
     public void PlayerBlackjackTest() {
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -47,13 +47,13 @@ public class GameTest {
         game.players[1].PlayerBlackjack(0);
 
         Assert.True( game.players[0].InGame);
-        Assert.Equal(0,  game.players[0].Retuns);
+        Assert.AreEqual(0,  game.players[0].Retuns);
 
         Assert.False(game.players[1].InGame);
-        Assert.Equal(30,  game.players[1].Retuns);
+        Assert.AreEqual(30,  game.players[1].Retuns);
     }
 
-    [Fact]
+    [Test]
      public void PlayerBustTest(){
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -114,20 +114,20 @@ public class GameTest {
         game.players[1].Hand[0].Add(king);
         game.players[1].Hand[0].Add(three);
         
-        Assert.Equal(33, game.players[0].Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(33, game.players[0].Hand[0].Sum(card => card.Value));
 
         game.players[0].BustCheck(0);
         game.players[1].BustCheck(0);
 
         Assert.True(game.players[0].InGame);
-        Assert.Equal(13, game.players[0].Hand[0].Sum(card => card.Value));
-        Assert.Equal(10, game.players[0].Bet[0]);
+        Assert.AreEqual(13, game.players[0].Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(10, game.players[0].Bet[0]);
 
         Assert.False(game.players[1].InGame);
-        Assert.Equal(0, game.players[1].Bet[0]);
+        Assert.AreEqual(0, game.players[1].Bet[0]);
     }
 
-    [Fact]
+    [Test]
     public void GameDone() {
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -151,7 +151,7 @@ public class GameTest {
         Assert.False(game.Playing);
     }
 
-    [Fact]
+    [Test]
     public void CheckIfNewRoundBegins(){
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -160,20 +160,20 @@ public class GameTest {
         game.SetPlayerNames();
 
         game.CheckIfNewRoundBegins();
-        Assert.Equal(2, game.players.Count);
-        Assert.Equal(2, game.PlayerCount);
+        Assert.AreEqual(2, game.players.Count);
+        Assert.AreEqual(2, game.PlayerCount);
         Assert.True(game.Playing);
 
         game.players.Clear();
         game.PlayerCount = 0;
 
         game.CheckIfNewRoundBegins();
-        Assert.Empty(game.players);
-        Assert.Equal(0, game.PlayerCount);
+        Assert.IsEmpty(game.players);
+        Assert.AreEqual(0, game.PlayerCount);
         Assert.False(game.Playing);
     }
 
-    [Fact]
+    [Test]
    public void ResultTest(){
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -245,16 +245,16 @@ public class GameTest {
         game.players[2].Hand[0].Add(six);
 
         game.Results();
-        Assert.Equal(2, game.players[0].Hand.Count);
-        Assert.Equal(16, game.players[0].Hand[0].Sum(card=>card.Value));
-        Assert.Equal(20, game.players[0].Hand[1].Sum(card=>card.Value));
+        Assert.AreEqual(2, game.players[0].Hand.Count);
+        Assert.AreEqual(16, game.players[0].Hand[0].Sum(card=>card.Value));
+        Assert.AreEqual(20, game.players[0].Hand[1].Sum(card=>card.Value));
 
-        Assert.Equal(140, game.players[0].Chips);
-        Assert.Equal(70, game.players[1].Chips);
-        Assert.Equal(0, game.players[2].Chips);
+        Assert.AreEqual(140, game.players[0].Chips);
+        Assert.AreEqual(70, game.players[1].Chips);
+        Assert.AreEqual(0, game.players[2].Chips);
     }
 
-    [Fact]
+    [Test]
     public void CanPlayersContinuetest(){
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -262,17 +262,17 @@ public class GameTest {
         game.PlayerCount = 5;
         game.SetPlayerNames();
 
-        Assert.Equal(5, game.players.Count);
+        Assert.AreEqual(5, game.players.Count);
 
         game.players[0].Chips = 0;
         game.players[1].Chips = 0;
 
         game.CanPlayersContinue();
 
-        Assert.Equal(3, game.players.Count);
+        Assert.AreEqual(3, game.players.Count);
     }
 
-    [Fact]
+    [Test]
     public void PlayersWantToContinueTest() {
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -281,15 +281,15 @@ public class GameTest {
 
         game.SetPlayerNames();
 
-        Assert.Equal(5, game.players.Count);
+        Assert.AreEqual(5, game.players.Count);
 
         Console.SetIn(new StringReader("n\nn\ny\ny\ny"));
 
         game.DoPlayersWantContinue();
-        Assert.Equal(3, game.players.Count);
+        Assert.AreEqual(3, game.players.Count);
     }
 
-    [Fact]
+    [Test]
     public void CheckIfnewPlayersJoinTest(){
         Deck testdeck = new Deck();
         BlackJack game = new BlackJack(testdeck);
@@ -297,15 +297,15 @@ public class GameTest {
         game.PlayerCount = 5;
         game.SetPlayerNames();
 
-        Assert.Equal(5, game.players.Count);
+        Assert.AreEqual(5, game.players.Count);
 
         Console.SetIn(new StringReader("Y\n2\njhonny\nJennifer"));
         game.CheckIfnewPlayersJoin();
 
-        Assert.Equal(7, game.players.Count);
+        Assert.AreEqual(7, game.players.Count);
     }
 
-    [Fact]
+    [Test]
     public void TurnRotationTest() {
         Card two = new Card {
             Suit = "♠",
@@ -353,8 +353,8 @@ public class GameTest {
         game.players[0].Bet.Add(0);
         game.players[0].Insurance.Add(0);
 
-        Assert.Equal(2, game.players[0].Hand.Count);
-        Assert.Equal(2, game.players[0].Stand.Count);
+        Assert.AreEqual(2, game.players[0].Hand.Count);
+        Assert.AreEqual(2, game.players[0].Stand.Count);
 
         game.players[0].Hand[0].Add(two);
         game.players[0].Hand[0].Add(three);
@@ -367,14 +367,14 @@ public class GameTest {
 
         game.TurnRotation();
 
-        Assert.Equal(3, game.players[0].Hand[0].Count);
-        Assert.Equal(7, game.players[0].Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(3, game.players[0].Hand[0].Count);
+        Assert.AreEqual(7, game.players[0].Hand[0].Sum(card => card.Value));
 
-        Assert.Equal(2, game.players[0].Hand[1].Count);
-        Assert.Equal(15, game.players[0].Hand[1].Sum(card => card.Value));
+        Assert.AreEqual(2, game.players[0].Hand[1].Count);
+        Assert.AreEqual(15, game.players[0].Hand[1].Sum(card => card.Value));
 
-        Assert.Equal(2, game.players[1].Hand[0].Count);
-        Assert.Equal(14, game.players[1].Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(2, game.players[1].Hand[0].Count);
+        Assert.AreEqual(14, game.players[1].Hand[0].Sum(card => card.Value));
 
         Assert.False(game.Playing);
     }

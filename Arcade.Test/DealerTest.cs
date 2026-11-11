@@ -1,11 +1,10 @@
 using Blackjack;
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace Arcade.Test;
 
 public class DealerTest {
 
-    [Fact]
+    [Test]
     public void DealerBlackjackTest(){
         
         Deck testdeck = new Deck();
@@ -48,15 +47,15 @@ public class DealerTest {
 
         foreach (Player player in game.players){
             Assert.True(player.InGame);
-            Assert.NotEqual(0, player.Bet[0]);
+            Assert.AreNotEqual(0, player.Bet[0]);
         }
-        Assert.Equal(10, game.players[0].Bet[0]);
-        Assert.Empty(game.players[0].Insurance);
-        Assert.Equal(85, game.players[0].Chips);
+        Assert.AreEqual(10, game.players[0].Bet[0]);
+        Assert.IsEmpty(game.players[0].Insurance);
+        Assert.AreEqual(85, game.players[0].Chips);
 
-        Assert.Equal(20, game.players[1].Bet[0]);
-        Assert.Empty(game.players[1].Insurance);
-        Assert.Equal(70, game.players[1].Chips);
+        Assert.AreEqual(20, game.players[1].Bet[0]);
+        Assert.IsEmpty(game.players[1].Insurance);
+        Assert.AreEqual(70, game.players[1].Chips);
 
         game.dealer.Hand[0].Clear();
         game.players[0].Chips += 5;
@@ -72,14 +71,14 @@ public class DealerTest {
 
         foreach (Player player in game.players){
             Assert.False(player.InGame);
-            Assert.Empty(player.Bet);
-            Assert.Empty(player.Insurance);
+            Assert.IsEmpty(player.Bet);
+            Assert.IsEmpty(player.Insurance);
         }
-        Assert.Equal(10, game.players[0].Retuns);
-        Assert.Equal(20, game.players[1].Retuns);
+        Assert.AreEqual(10, game.players[0].Retuns);
+        Assert.AreEqual(20, game.players[1].Retuns);
     }
 
-    [Fact]
+    [Test]
     public void DealerHitTest() {
         Card two = new Card {
             Suit = "♠",
@@ -138,8 +137,8 @@ public class DealerTest {
         game.DealerHitLoop();
 
 
-        Assert.Equal(3, testdeck.deck.Count);
-        Assert.Equal(19, game.dealer.Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(3, testdeck.deck.Count);
+        Assert.AreEqual(19, game.dealer.Hand[0].Sum(card => card.Value));
 
         game.dealer.Hand[0].Clear();
         game.dealer.Hand[0].Add(four);
@@ -147,8 +146,8 @@ public class DealerTest {
         
         game.DealerHitLoop();
 
-        Assert.Equal(2, testdeck.deck.Count);
-        Assert.Equal(24, game.dealer.Hand[0].Sum(card => card.Value));
+        Assert.AreEqual(2, testdeck.deck.Count);
+        Assert.AreEqual(24, game.dealer.Hand[0].Sum(card => card.Value));
     }
 
 }

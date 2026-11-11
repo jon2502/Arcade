@@ -5,14 +5,14 @@ namespace Arcade.Test;
 public class ProgramTest {
 
     
-    [Fact]
+    [Test]
     public void gameTest() {
         Console.SetIn(new StringReader("3\njhon\nJane\nJack\n2\n20\n30\n40"));
         BlackJack game = Program.CreateGame();
         Program.BlackJackSetup(game);
     }
 
-    [Fact]
+    [Test]
     public void EndTest(){
         Console.SetIn(new StringReader("3\njhon\nJane\nJack\n2\n20\n30\n40\ny\ny\nn\ny\n2\nJhonny\nJackie"));
         BlackJack game = Program.CreateGame();
@@ -20,7 +20,7 @@ public class ProgramTest {
         Program.BlackjackEnd(game);
 
         Assert.True(game.Playing);
-        Assert.Equal(4, game.PlayerCount);
+        Assert.AreEqual(4, game.PlayerCount);
 
     }
 }
