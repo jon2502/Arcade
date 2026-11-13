@@ -13,10 +13,8 @@ public class DealerTest {
     [Test]
     public void DealerBlackjackTest(){
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane\n10\n20\ny\n5\ny\n10\ny\n5\ny\n10"));
+        Console.SetIn(new StringReader("10\n20\ny\n5\ny\n10\ny\n5\ny\n10"));
         game.PlayerCount = 2;
-        game.SetPlayerNames();
-
 
         game.players[0].SetBet(0);
         game.players[1].SetBet(0);

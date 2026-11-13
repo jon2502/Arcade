@@ -10,21 +10,30 @@ public class DeckTest {
         blackjackdeck = new Deck();
     }
 
-    [TestCase("1")]
-    [TestCase("2")]
-    [TestCase("3")]
-    [TestCase("4")]
-    [TestCase("5")]
-    [TestCase("6")]
-    [TestCase("7")]
-    [TestCase("8")]
+    [TestCase("1", 1)]
+    [TestCase("2", 2)]
+    [TestCase("3", 3)]
+    [TestCase("4", 4)]
+    [TestCase("5", 5)]
+    [TestCase("6", 6)]
+    [TestCase("7", 7)]
+    [TestCase("8", 8)]
 
-    public void DeckSelectionTest(string input){
-        Console.SetIn(new StringReader($"\n10\n9\ny\n0\n-1\n{input}"));
-        blackjackdeck.SetDecksize();
-        int intValue = Int32.Parse(input);
-        
-        Assert.AreEqual(intValue, blackjackdeck.DeckSize);
+    public void DeckSelectionTest(string input, int expectedNumber){
+        blackjackdeck.SetDecksize(input);
+        Assert.AreEqual(expectedNumber, blackjackdeck.DeckSize);
+    }
+
+    [TestCase("-1")]
+    [TestCase("0")]
+    [TestCase("9")]
+    [TestCase("10")]
+    [TestCase("Test")]
+    [TestCase("")]
+
+    public void DeckSelectionTestFail(string input){
+        blackjackdeck.SetDecksize(input);
+        Assert.AreEqual(1, blackjackdeck.DeckSize);
     }
 
     [Test]
@@ -109,11 +118,7 @@ public class DeckTest {
         BlackJack game = new BlackJack(blackjackdeck);
         game.blackjackdeck.CreateDeck();
         game.blackjackdeck.DeckSize = 1;
-
-        Console.SetIn(new StringReader(""));
         game.PlayerCount = 1;
-        game.SetPlayerNames();
-
         for (int i = 0; i < 100; i++){
             Card card = blackjackdeck.DrawCard();
             game.players[0].DrawACard(card, 0);

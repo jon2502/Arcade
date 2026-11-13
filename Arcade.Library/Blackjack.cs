@@ -30,14 +30,6 @@ public class BlackJack:Game {
 
     }
 
-    public void SetStartingBets(){
-        foreach (Player player in players) {
-            Console.WriteLine($"{player.Name} place your bet");
-            player.SetBet(0);
-        }
-
-    }
-
     public void DoPlayersWantToSurrender(){
         foreach (Player player in players) {
             player.Surrender(0);
@@ -202,8 +194,6 @@ public class BlackJack:Game {
             Console.WriteLine("anyother key : no");
             string input = Console.ReadLine() ?? "";
             if (input == "y" || input == "Y") {
-                SetPlayerCount();
-                SetPlayerNames();
             }
         }
     }

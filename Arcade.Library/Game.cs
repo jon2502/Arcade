@@ -15,35 +15,46 @@ public class Game {
         MinPlayers = min;
     }
 
-    public void SetPlayerCount(){
-        bool Setting = true;
-        Console.WriteLine($"Hello how may players are you: from {MinPlayers} - {MaxPlayers-PlayerCount}");
-        while (Setting){
-            string input = Console.ReadLine() ?? "";
-            try {
-                int output = Int32.Parse(input);
-                if(output >= 1 && output <= 7-PlayerCount){
-                    PlayerCount += output;
-                    Setting = false;
-                } else {
-                    Console.WriteLine($"Please select a number between {MinPlayers} - {MaxPlayers-PlayerCount}");
-                }
-            } catch {
-                Console.WriteLine($"Please select a number between {MinPlayers} - {MaxPlayers-PlayerCount}");
-            }
+    public void SelectGame(string indput) {
+        switch (indput)
+        {
+            case "B":
+            break;
+            case "M":
+            break;
+            default:
+            break;
         }
     }
 
-    public void SetPlayerNames(){
-        for (int i = players.Count; i < PlayerCount; i++) {
-            Player player = new Player();
-            Console.WriteLine($"player {i+1}: write your name");
 
-            string playername = Console.ReadLine() ?? "";
-            if (!string.IsNullOrWhiteSpace(playername)){
-                player.Name = playername;
+    public Results SetPlayerCount(string input){
+        Results results = new Results();
+            try {
+                int output = Int32.Parse(input);
+                if(output >= 1 && output <= 7-PlayerCount){
+                    PlayerCount += output; 
+                    results.IsSuccess = true;
+                } else {
+                    results.IsSuccess = false;
+                    results.Message = $"Please select a number between {MinPlayers} - {MaxPlayers-PlayerCount}";
+                }
+            } catch {
+                results.IsSuccess = false;
+                results.Message = $"Please select a number between {MinPlayers} - {MaxPlayers-PlayerCount}";
             }
-            players.Add(player);
+        return results;
         }
+
+    public Results SetPlayerName(string name){
+        Results results = new Results();
+        Player player = new Player();
+
+        if (!string.IsNullOrWhiteSpace(name)){
+            player.Name = name;
+        }
+        players.Add(player);
+        results.IsSuccess = true;
+        return results;
     }
 }

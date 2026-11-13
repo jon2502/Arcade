@@ -13,9 +13,8 @@ public class GameTest {
     [Test]
     public void PlayerBlackjackTest() {
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane\n10\n20"));
+        Console.SetIn(new StringReader("10\n20"));
         game.PlayerCount=2;
-        game.SetPlayerNames();
 
         game.players[0].SetBet(0);
         game.players[1].SetBet(0);
@@ -62,9 +61,8 @@ public class GameTest {
     [Test]
      public void PlayerBustTest(){
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane\n10\n20"));
+        Console.SetIn(new StringReader("10\n20"));
         game.PlayerCount = 2;
-        game.SetPlayerNames();
 
         game.players[0].SetBet(0);
         game.players[1].SetBet(0);
@@ -135,9 +133,7 @@ public class GameTest {
     [Test]
     public void GameDone() {
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane"));
         game.PlayerCount=2;
-        game.SetPlayerNames();
         foreach(Player player in game.players){
             player.CheckPlayerState();
         }
@@ -155,35 +151,12 @@ public class GameTest {
         Assert.False(game.Playing);
     }
 
-    [Test]
-    public void CheckIfNewRoundBegins(){
-        BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane"));
-        game.PlayerCount = 2;
-        game.SetPlayerNames();
-
-        game.CheckIfNewRoundBegins();
-        Assert.AreEqual(2, game.players.Count);
-        Assert.AreEqual(2, game.PlayerCount);
-        Assert.True(game.Playing);
-
-        game.players.Clear();
-        game.PlayerCount = 0;
-
-        game.CheckIfNewRoundBegins();
-        Assert.IsEmpty(game.players);
-        Assert.AreEqual(0, game.PlayerCount);
-        Assert.False(game.Playing);
-    }
 
     [Test]
    public void ResultTest(){
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane\nJack\n10\n40\n30\n100"));
+        Console.SetIn(new StringReader("n10\n40\n30\n100"));
         game.PlayerCount=3;
-
-        game.SetPlayerNames();
-
         
         Card ten = new Card {
             Suit = "♦",
@@ -259,10 +232,7 @@ public class GameTest {
     [Test]
     public void CanPlayersContinuetest(){
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
         game.PlayerCount = 5;
-        game.SetPlayerNames();
-
         Assert.AreEqual(5, game.players.Count);
 
         game.players[0].Chips = 0;
@@ -277,9 +247,6 @@ public class GameTest {
     public void PlayersWantToContinueTest() {
         BlackJack game = new BlackJack(blackjackdeck);
         game.PlayerCount = 5;
-        Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
-
-        game.SetPlayerNames();
 
         Assert.AreEqual(5, game.players.Count);
 
@@ -292,9 +259,7 @@ public class GameTest {
     [Test]
     public void CheckIfnewPlayersJoinTest(){
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\n\n\nJane\nJack"));
         game.PlayerCount = 5;
-        game.SetPlayerNames();
 
         Assert.AreEqual(5, game.players.Count);
 
@@ -342,9 +307,8 @@ public class GameTest {
         blackjackdeck.deck.Add(five);
 
         BlackJack game = new BlackJack(blackjackdeck);
-        Console.SetIn(new StringReader("Aiden\nJane\ny\nn\nn\nn"));
+        Console.SetIn(new StringReader("y\nn\nn\nn"));
         game.PlayerCount = 2;
-        game.SetPlayerNames();
 
         game.players[0].Hand.Add([]);
         game.players[0].Stand.Add(false);

@@ -19,27 +19,27 @@ public class Player : Participant {
             } return false;
         }
 
-    public void SetBet(int i) {
-        bool Betting = true;
-        while (Betting) {
-            string value = Console.ReadLine() ?? "";
-            try {
-                float output = float.Parse(value);
-                if (output <= 1) {
-                    Console.WriteLine($"{Name} please select a value of 2 or greater");
-                } else if (output > Chips) {
-                    Console.WriteLine($"{Name} balance to low");
-                } else {
-                    Chips -= output;
-                    Bet[i] = output;
-                    Console.WriteLine($"{Name} bet is {Bet[i]}");
-                    Betting = false;
-                }
-            } catch {
-                Console.WriteLine($"{Name} please select a number");
+    public Results SetBet(string input, int i) {
+        Results results = new Results();
+        try {
+            float output = float.Parse(input);
+            if (output <= 1) {
+                results.IsSuccess = false;
+                results.Message = $"{Name} please select a value of 2 or greater";
+            } else if (output > Chips) {
+                results.IsSuccess = false;
+                results.Message = $"{Name} balance to low";
+            } else {
+                Chips -= output;
+                Bet[i] = output;
+                results.IsSuccess = true;
+                results.Message = $"{Name} bet is {Bet[i]}";
             }
+        } catch {
+            results.IsSuccess = false;
+            results.Message = $"{Name} please select a number";
         }
-        
+        return results;  
     }
 
     public void SetInsurance() {

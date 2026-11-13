@@ -4,11 +4,12 @@ namespace Arcade.Test;
 
 public class ProgramTest {
 
+
+
     [Test]
-    public void gameTest() {
-        Console.SetIn(new StringReader("3\njhon\nJane\nJack\n2\n20\n30\n40"));
-        BlackJack game = Program.CreateGame();
-        Program.BlackJackSetup(game);
+    public void CreateGameTest() {
+        Console.SetIn(new StringReader("test\n9\n3\n\nJane\nJack"));
+        Program.CreateGame();
     }
 
     [Test]
