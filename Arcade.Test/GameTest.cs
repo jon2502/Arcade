@@ -16,8 +16,8 @@ public class GameTest {
         Console.SetIn(new StringReader("10\n20"));
         game.PlayerCount=2;
 
-        game.players[0].SetBet(0);
-        game.players[1].SetBet(0);
+        //game.players[0].SetBet(0);
+        //game.players[1].SetBet(0);
 
         Card ace = new Card {
             Suit = "♦",
@@ -64,8 +64,8 @@ public class GameTest {
         Console.SetIn(new StringReader("10\n20"));
         game.PlayerCount = 2;
 
-        game.players[0].SetBet(0);
-        game.players[1].SetBet(0);
+        //game.players[0].SetBet(0);
+        //game.players[1].SetBet(0);
 
         Card ten = new Card {
             Suit = "♦",
@@ -194,10 +194,10 @@ public class GameTest {
         game.players[0].Hand.Add([]);
         game.players[0].Bet.Add(0);
 
-        game.players[0].SetBet(0);
-        game.players[0].SetBet(1);
-        game.players[1].SetBet(0);
-        game.players[2].SetBet(0);
+        //game.players[0].SetBet(0);
+        //game.players[0].SetBet(1);
+        //game.players[1].SetBet(0);
+        //game.players[2].SetBet(0);
 
 
         game.dealer.Hand[0].Add(five);

@@ -27,32 +27,6 @@ public class BlackJack:Game {
             }
         }
         Console.WriteLine($"the {dealer.Name} has a {dealer.Hand[0][0].Suit}{dealer.Hand[0][0].Rank}");
-
-    }
-
-    public void DoPlayersWantToSurrender(){
-        foreach (Player player in players) {
-            player.Surrender(0);
-        }
-    }
-
-    public void DoPlayersWantToSplit(){
-        foreach (Player player in players) {
-            int HandIndex = 0;
-            while (HandIndex < player.Hand.Count) {  
-                bool DidSplit = player.Split(HandIndex);
-                if (DidSplit) {
-                    MoveCard(player,HandIndex);
-                    MoveCard(player, player.Hand.Count - 1);
-                    Console.WriteLine($"{player.Name} place bet for new hand");
-                    player.SetBet(player.Hand.Count - 1);
-    
-                    player.PlayerBlackjack(HandIndex);
-                    player.PlayerBlackjack(player.Hand.Count - 1);
-
-                } else {HandIndex++;}
-            }
-        }
     }
 
     public void DoubleDownOption(){
@@ -113,7 +87,7 @@ public class BlackJack:Game {
             foreach (Player player in players) {
                 if (player.InGame == true){
                     Console.WriteLine($"{player.Name}'s turn");
-                    for (int HandIndex = 0; HandIndex < player.Hand.Count; HandIndex++) {
+                    /*for (int HandIndex = 0; HandIndex < player.Hand.Count; HandIndex++) {
                     if (player.Stand[HandIndex] != true){
                         bool Output = player.StandOrHit(HandIndex);
                             if (Output) {
@@ -123,7 +97,7 @@ public class BlackJack:Game {
                                 player.CheckPlayerState();
                             }
                         }
-                    }
+                    }*/
                 }
             }
             CheckIfGamesOver();
@@ -177,13 +151,13 @@ public class BlackJack:Game {
     }
     public void DoPlayersWantContinue(){
         for (int playerIndex = 0; playerIndex < players.Count; playerIndex++) {
-            bool WantToContinue = players[playerIndex].WantToContinue();
+            /*bool WantToContinue = players[playerIndex].WantToContinue();
             if (WantToContinue == false) {
                 Console.WriteLine($"{players[playerIndex].Name} has left the table with {players[playerIndex].Chips} chips");
                 players.RemoveAt(playerIndex);
                 PlayerCount -= 1;
                 playerIndex --;
-            }
+            }*/
         }
     }
 

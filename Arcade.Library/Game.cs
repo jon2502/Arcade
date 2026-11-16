@@ -19,6 +19,8 @@ public class Game {
         switch (indput)
         {
             case "B":
+                Deck blackjackdeck = new Deck();
+                BlackJack blackjack = new BlackJack(blackjackdeck);
             break;
             case "M":
             break;

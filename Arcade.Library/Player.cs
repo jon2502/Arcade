@@ -10,11 +10,8 @@ public class Player : Participant {
     public float Retuns {get; set;} = 0;
     public bool InGame {get; set;} = true;
 
-    public static bool PlayerOption () {
-            Console.WriteLine("y : yes");
-            Console.WriteLine("anyother key : no");
-            string Output = Console.ReadLine() ?? "";
-            if (Output == "y" || Output== "Y") {
+    public bool PlayerOption (string input) {
+            if (input == "y" || input == "Y") {
                 return true;
             } return false;
         }
@@ -47,7 +44,7 @@ public class Player : Participant {
              Console.WriteLine($"{Name} would you like to place insurance on your hand of");
             DisplayHand(i);
             Console.WriteLine($"with a bet of {Bet[i]}");
-            bool Output = PlayerOption();
+            /*bool Output = PlayerOption();
             if (Output) {
                 Console.WriteLine($"{Name} How much would you like to place into insurance?");
                 bool SettingInsurance = true;
@@ -69,7 +66,7 @@ public class Player : Participant {
                         Console.WriteLine($"{Name} please select a valid full number");
                     }
                 }
-            }
+            }*/
         }
     }
 
@@ -103,7 +100,7 @@ public class Player : Participant {
     public bool DoubleDown(int i) {
         Console.WriteLine($"{Name} Would you like to doubledown for your hand of?");
         DisplayHand(i);
-        bool Output = PlayerOption();
+        /*bool Output = PlayerOption();
         if (Output) {
             if(Bet[i] > Chips){
                 Console.WriteLine($"{Name} balance to low you cant Double down");
@@ -114,61 +111,51 @@ public class Player : Participant {
                 Bet[i] *= 2;
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
-    public bool Split(int i) {
+    public Results CheckSplit(int i) {
+        Results results = new Results();
         if(Hand[i].Count == 2 && Hand[i][0].Value == Hand[i][1].Value){
             if(Hand[i][0].Rank == "A" && Hand[i][1].Rank == "A") {
-                Console.WriteLine($"{Name} you have two aces so your hand will be split");
-                Card card = Hand[i][0];
-                Hand[i].RemoveAt(0);
-                Hand.Add([card]);
-                Bet.Add(0);
-                Insurance.Add(0);
-                Stand.Add(false);
-                return true;
+                results.Message = $"{Name} you have two aces so your hand will be split";
             } else {
-                Console.WriteLine($"{Name} You have cards with the same value and may split them if you choce");
-                DisplayHand(i);
-                bool Output = PlayerOption();
-                if (Output) {
-                    Card card = Hand[i][0];
-                    Hand[i].RemoveAt(0);
-                    Hand.Add([card]);
-                    Bet.Add(0);
-                    Insurance.Add(0);
-                    Stand.Add(false);
-                    return true;
-                }
+                results.Message = $"""
+                    {Name} You have cards with the same value and may split them if you choce
+                    {DisplayHand(i)}
+                """;
             }
-        }
-        return false;
+            results.IsSuccess = true;
+        } else {results.IsSuccess = false;}
+        return results;
+    }
+    public void Split(int i) {
+        Card card = Hand[i][0];
+        Hand[i].RemoveAt(0);
+        Hand.Add([card]);
+        Bet.Add(0);
+        Insurance.Add(0);
+        Stand.Add(false);
     }
 
-    public void Surrender(int i) {
-        Console.WriteLine($"{Name} would you like to surrender and get half your bet back. youyr current hand is");
-        DisplayHand(i);
-        bool Output = PlayerOption();
-        if (Output) {
-            Console.WriteLine($"Surrende accepted now returning {Bet[i]/2} to your chip pool");
-            Chips += Bet[i]/2;
-            Bet.Clear();
-            Insurance.Clear();
-            Hand.Clear();
-            Stand.Clear();
-            CheckPlayerState();
-        }
+    public string Surrender(int i) {
+        float Refund = Bet[i]/2;
+        Chips += Refund;
+        Bet.Clear();
+        Insurance.Clear();
+        Hand.Clear();
+        Stand.Clear();
+        return  $"Surrende accepted now returning {Refund} to your chip pool";
     }
 
-    public bool StandOrHit(int i){
+    /*public bool StandOrHit(int i){
         Console.WriteLine($"{Name} would you like to Hit or stand for your hand of");
         DisplayHand(i);
         Console.WriteLine($"with a bet of {Bet[i]}");
-        bool Output = PlayerOption();
+        //bool Output = PlayerOption();
         return Output;
-    }
+    }*/
 
     public bool Canplay(){
         double AllBets = Bet.Sum(bet => bet);
@@ -178,12 +165,12 @@ public class Player : Participant {
         return true;
     }
 
-    public bool WantToContinue() {
+    /*public bool WantToContinue() {
         Console.WriteLine($"{Name} would you continue or would you like to leave the table");
-        bool Output = PlayerOption();
-        return Output;
+        //bool Output = PlayerOption();
+        //return Output;
 
-    }
+    }*/
 
     public void CheckPlayerState(){
         if(Stand.All(x => x==true) || Hand.Count <= 0){

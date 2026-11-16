@@ -7,10 +7,8 @@ public class Participant {
        Hand[i].Add(card);
     }
 
-    public void DisplayHand(int i){
-        foreach(Card card in Hand[i]){
-            Console.WriteLine($"{card.Suit}{card.Rank}");
-        }
+    public string DisplayHand(int i){
+        return string.Join(", ", Hand[i].Select(card => $"{card.Suit}{card.Rank}"));
     }
 
     public bool Blackjack(int i) {
