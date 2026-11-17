@@ -96,6 +96,31 @@ namespace Blackjack {
             }
         }
 
+        public static void BlackJackDoubleDown(BlackJack game){
+            foreach (Player player in game.players) {
+                for (int i = 0; i < player.Hand.Count; i++) {
+                    Console.WriteLine($"{player.Name} Would you like to doubledown for your hand of?");
+                    Console.WriteLine(player.DisplayHand(i));
+                    string Output = SimplePlayerinput();
+                    bool DidBouble = player.PlayerOption(Output);
+                    if (DidBouble) {
+                        Results sucsses = player.DoubleDown(i);
+                        if (sucsses.IsSuccess == true) {
+                            game.MoveCard(player, i);
+                            player.DisplayHand(i);
+                            player.BustCheck(i);
+                            player.CheckPlayerState();
+                        }else{Console.WriteLine(sucsses.Message);}
+                    }
+                }
+
+            }
+        }
+
+        public static void BlackJackInsurance(BlackJack game) {
+            
+        }
+
         public static void BlackjackEnd(BlackJack game) {
                 game.Results();
                 game.CanPlayersContinue();

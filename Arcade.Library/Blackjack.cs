@@ -29,20 +29,6 @@ public class BlackJack:Game {
         Console.WriteLine($"the {dealer.Name} has a {dealer.Hand[0][0].Suit}{dealer.Hand[0][0].Rank}");
     }
 
-    public void DoubleDownOption(){
-        foreach (Player player in players) {
-            for (int i = 0; i < player.Hand.Count; i++) {
-                bool DidDoubleDown = player.DoubleDown(i);
-                if (DidDoubleDown) {
-                    MoveCard(player, i);
-                    player.DisplayHand(i);
-                    player.BustCheck(i);
-                    player.CheckPlayerState();
-                }
-            }
-        }
-    }
-
     public void CheckInsurrance(){
         bool check = dealer.DoesTheDealerHaveAnAce();
         if (check) {

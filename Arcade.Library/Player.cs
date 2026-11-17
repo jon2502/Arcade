@@ -97,22 +97,18 @@ public class Player : Participant {
         return false;
     }
 
-    public bool DoubleDown(int i) {
-        Console.WriteLine($"{Name} Would you like to doubledown for your hand of?");
-        DisplayHand(i);
-        /*bool Output = PlayerOption();
-        if (Output) {
+    public Results DoubleDown(int i) {
+        Results result = new Results();
             if(Bet[i] > Chips){
-                Console.WriteLine($"{Name} balance to low you cant Double down");
-                return false;
+                result.Message = $"{Name} balance to low you cant Double down";
+                result.IsSuccess = false;
             } else {
                 Stand[i] = true;
                 Chips -= Bet[i];
                 Bet[i] *= 2;
-                return true;
+                result.IsSuccess = true;
             }
-        }*/
-        return false;
+        return result;
     }
 
     public Results CheckSplit(int i) {
