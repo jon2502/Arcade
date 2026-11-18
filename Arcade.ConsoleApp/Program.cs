@@ -83,8 +83,8 @@ namespace Blackjack {
                         string Output = SimplePlayerinput();
                         DidSplit = player.PlayerOption(Output);
                     } else {DidSplit = true;}
-                    player.Split(HandIndex);
                     if (DidSplit) {
+                        player.Split(HandIndex);
                         game.MoveCard(player,HandIndex);
                         game.MoveCard(player, player.Hand.Count - 1);
                         Console.WriteLine($"{player.Name} place bet for new hand");
