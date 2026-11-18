@@ -2,8 +2,26 @@ using Blackjack;
 
 namespace Arcade.Test.ConsoleApp;
 
-public class ProgramTest {
+public class ProgramTest  {
 
+
+    private Deck blackjackdeck;
+    private BlackJack game;
+
+    [SetUp]
+    public void SetUp() {
+        blackjackdeck = new Deck();
+        game = new BlackJack(blackjackdeck);
+
+        Player JhonDoe = new Player();
+        Player JaneDoe = new Player()
+        {
+            Name = "Jane Doe"
+        };
+        game.players.Add(JhonDoe);
+        game.players.Add(JaneDoe);
+
+    }
 
 
     [Test]
@@ -14,32 +32,12 @@ public class ProgramTest {
 
     [Test]
     public void BlackJackSetupTest() {
-        Deck blackjackdeck = new Deck();
-        BlackJack game = new BlackJack(blackjackdeck);
-        Player JhonDoe = new Player();
-        Player JaneDoe = new Player()
-        {
-            Name = "Jane Doe"
-        };
-
-        game.players.Add(JhonDoe);
-        game.players.Add(JaneDoe);
-
         Console.SetIn(new StringReader("test\n9\n3\n\n200\nTest\n-10\n0\n20\n30"));
         Program.BlackJackSetup(game);
     }
 
     [Test]
     public void BlackJackSurrenderTest() {
-        Deck blackjackdeck = new Deck();
-        BlackJack game = new BlackJack(blackjackdeck);
-        Player JhonDoe = new Player();
-        Player JaneDoe = new Player()
-        {
-            Name = "Jane Doe"
-        };
-        game.players.Add(JhonDoe);
-        game.players.Add(JaneDoe);
 
         Card two = new Card {
             Suit = "♠",
@@ -72,6 +70,11 @@ public class ProgramTest {
 
         Console.SetIn(new StringReader("Y\n9"));
         Program.BlackJackSurrender(game);
+    }
+
+    [Test]
+    public void BlackJackSplitTest() {
+        
     }
 
     [Test]
