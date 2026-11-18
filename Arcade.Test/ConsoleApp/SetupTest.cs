@@ -28,17 +28,13 @@ public class SetupTest {
         game.players.Add(JaneDoe);
     }
 
-
-    [Test]
-    public void CreateGameTest() {
-        Console.SetIn(new StringReader("test\n9\n3\n\nJane\nJack"));
-        Program.CreateGame();
-    }
-
     [Test]
     public void BlackJackSetupTest() {
-        Console.SetIn(new StringReader("test\n9\n3\n\n200\nTest\n-10\n0\n20\n30"));
-        Program.BlackJackSetup(game);
+        Console.SetIn(new StringReader("test\n9\n-1\n3\nJane\nJack\nJennifer\ntest\n11\n-2\n3\n200\nTest\n-10\n0\n20\n30\n4"));
+        BlackJack testblackjack = Program.CreateGame();
+        Program.BlackJackSetup(testblackjack);
+
+        Assert.AreEqual(3, testblackjack.players.Count);
     }
 
     [Test]

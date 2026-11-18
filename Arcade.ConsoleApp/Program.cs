@@ -41,7 +41,7 @@ namespace Blackjack {
             Console.WriteLine($"Hello how may players are you: from {game.MinPlayers} - {game.MaxPlayers-game.PlayerCount}");
             Playerinput(game.SetPlayerCount);
 
-            for (int i = game.players.Count; i < game.PlayerCount; i++) {
+            for (int i = 0; i < game.PlayerCount; i++) {
                 Console.WriteLine($"player {i+1}: write your name");
                 Playerinput(game.SetPlayerName);
             }
@@ -118,7 +118,9 @@ namespace Blackjack {
         }
 
         public static void BlackJackInsurance(BlackJack game) {
-            
+            foreach (Player player in game.players) {
+                
+            } 
         }
 
         public static void BlackjackEnd(BlackJack game) {
