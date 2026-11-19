@@ -1,20 +1,27 @@
 public class Dealer : Participant {
     
-    public bool DoesTheDealerHaveAnAce() {
-        if(Hand[0][0].Rank == "A" && Hand[0].Count == 2) {
-                Console.WriteLine($"the {Name} has an Ace would you like you place insurance?");
-                return true;
-        } return false;
+    public Results DoesTheDealerHaveAnAce() {
+        Results results = new Results();
+        if(Hand[0][0].Rank == "A") {
+                results.Message = $"the {Name} has an Ace would you like you place insurance?";
+                results.IsSuccess = true;
+        } else {results.IsSuccess = false;} ;
+        return results;
     }        
-    public bool DealerBlackjack() {
-        bool result = Blackjack(0);
-        if(result) {
-            Console.WriteLine($"the {Name} got BlackJack with a hand of {Hand[0][0].Suit}{Hand[0][0].Rank} and {Hand[0][1].Suit}{Hand[0][1].Rank}");
-            Console.WriteLine($"{Name} All players lose");
-            return true;
+    public Results DealerBlackjack() {
+        Results result = new Results();
+        bool blackjack = Blackjack(0);
+        if(blackjack) {
+            result.Message =  $"""
+                the {Name} got BlackJack with a hand of {Hand[0][0].Suit}{Hand[0][0].Rank} and {Hand[0][1].Suit}{Hand[0][1].Rank}
+                All players lose
+            """;
+            result.IsSuccess = true;
+        } else {
+            result.Message = $"the {Name}'s hand is {Hand[0][0].Suit}{Hand[0][0].Rank} and {Hand[0][1].Suit}{Hand[0][1].Rank}";
+            result.IsSuccess = false;
         }
-        Console.WriteLine($"the {Name}'s hand is {Hand[0][0].Suit}{Hand[0][0].Rank} and {Hand[0][1].Suit}{Hand[0][1].Rank}");
-        return false;
+        return result;
     }
     
     public bool Dealerhit(){

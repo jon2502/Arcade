@@ -118,9 +118,30 @@ namespace Blackjack {
         }
 
         public static void BlackJackInsurance(BlackJack game) {
-            foreach (Player player in game.players) {
-                
-            } 
+            Results results = game.dealer.DoesTheDealerHaveAnAce();
+            if (results.IsSuccess) {
+                Console.WriteLine(results.Message);
+                foreach (Player player in game.players) {
+                    for (int i = 0; i < player.Hand.Count; i++) {
+                        Console.WriteLine($"{player.Name} would you like to place insurance on your hand of");
+                        player.DisplayHand(i);
+                        Console.WriteLine($"with a bet of {player.Bet[i]}");
+                        string input = SimplePlayerinput();
+                        bool Output = player.PlayerOption(input);
+                        if (Output) {
+                            PlayerIndexedInput(player.SetInsurance, i);
+                        }
+                    }
+                } 
+            }
+            game.MoveCard(game.dealer,0);
+            Results result = game.dealer.DealerBlackjack();
+            Console.WriteLine(result.Message);
+            if (result.IsSuccess) {
+                foreach (Player player in game.players) {
+                    player.Inssurance();
+                }
+            }
         }
 
         public static void BlackjackEnd(BlackJack game) {

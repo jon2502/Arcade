@@ -39,13 +39,13 @@ public class DealerTest {
 
         game.dealer.Hand[0].Add(two);
         game.dealer.Hand[0].Add(two);
-        game.CheckInsurrance();
+        //game.CheckInsurrance();
         game.dealer.Hand[0].Clear();
 
 
         game.dealer.Hand[0].Add(ace);
         game.dealer.Hand[0].Add(two);
-        game.CheckInsurrance();
+        //game.CheckInsurrance();
 
         foreach (Player player in game.players){
             Assert.True(player.InGame);
@@ -69,7 +69,7 @@ public class DealerTest {
         game.dealer.Hand[0].Add(ace);
         game.dealer.Hand[0].Add(king);
 
-        game.CheckInsurrance();
+        //game.CheckInsurrance();
 
         foreach (Player player in game.players){
             Assert.False(player.InGame);

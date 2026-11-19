@@ -39,36 +39,40 @@ public class Player : Participant {
         return results;  
     }
 
-    public void SetInsurance() {
-        for (int i = 0; i < Hand.Count; i++) {
-             Console.WriteLine($"{Name} would you like to place insurance on your hand of");
-            DisplayHand(i);
-            Console.WriteLine($"with a bet of {Bet[i]}");
-            /*bool Output = PlayerOption();
-            if (Output) {
-                Console.WriteLine($"{Name} How much would you like to place into insurance?");
-                bool SettingInsurance = true;
-                while (SettingInsurance) {
-                    string value = Console.ReadLine() ?? "";
-                    try {
-                        float output = float.Parse(value);
-                        if (output > Chips) {
-                            Console.WriteLine($"{Name} balance to low");
-                        } else if (output > Bet[i] / 2) {
-                            Console.WriteLine($"{Name} Inssurance can max be half your bet");
-                        } else {
-                            Chips -= output;
-                            Insurance[i] = output;
-                            Console.WriteLine($"Insurance of {Insurance[i]} has been set for the hand");
-                            SettingInsurance = false;
-                        }
-                    } catch {
-                        Console.WriteLine($"{Name} please select a valid full number");
-                    }
-                }
-            }*/
+    public Results SetInsurance(string input, int i) {
+        Results results = new Results();
+        try {
+            float output = float.Parse(input);
+            if (output > Chips) {
+                results.IsSuccess = false;
+                results.Message = $"{Name} balance to low";
+            } else if (output > Bet[i] / 2) {
+                results.IsSuccess = false;
+                results.Message = $"{Name} Inssurance can max be half your bet";
+            } else {
+                Chips -= output;
+                Insurance[i] = output;
+                results.IsSuccess = true;
+                results.Message = $"Insurance of {Insurance[i]} has been set for the hand";
+            }
+        } catch {
+            results.IsSuccess = false;
+            results.Message = $"{Name} please select a valid full number";
         }
+        return results;
     }
+
+    public void Inssurance(){
+         Bet.Clear();
+        InGame = false;
+        for (int i = 0; i < Insurance.Count; i++) {
+            Retuns += Insurance[i] * 2;
+        };
+        Insurance.Clear();
+        Hand.Clear();
+        CheckPlayerState();           
+    }
+    
 
     public bool PlayerBlackjack(int i) {
         bool result = Blackjack(i);

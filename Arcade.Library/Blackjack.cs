@@ -17,9 +17,9 @@ public class BlackJack:Game {
             foreach(Player player in players){
                 MoveCard(player,0);
             }
-            MoveCard(dealer,0);
             i++;
         }
+        MoveCard(dealer,0);
         foreach (Player player in players) {
             bool result = player.PlayerBlackjack(0);
             if (!result){
@@ -28,35 +28,6 @@ public class BlackJack:Game {
         }
         Console.WriteLine($"the {dealer.Name} has a {dealer.Hand[0][0].Suit}{dealer.Hand[0][0].Rank}");
     }
-
-    public void CheckInsurrance(){
-        bool check = dealer.DoesTheDealerHaveAnAce();
-        if (check) {
-            foreach (Player player in players) {
-                player.SetInsurance();
-            }
-            bool result = dealer.DealerBlackjack();
-            if (result) {
-                foreach (Player player in players) {
-                    player.Bet.Clear();
-                    player.InGame = false;
-                    for (int i = 0; i < player.Insurance.Count; i++)
-                    {
-                        player.Retuns += player.Insurance[i] * 2;
-                    }
-                    player.Insurance.Clear();
-                    player.Hand.Clear();
-                    player.CheckPlayerState();
-                    }
-            } else {
-                foreach (Player player in players) {
-                    player.Insurance.Clear();
-                }
-            }
-        }
-        
-    }
-
     public void DealerHitLoop(){
         while(dealer.Hand[0].Sum(card => card.Value) <= 16) {
             MoveCard(dealer, 0);

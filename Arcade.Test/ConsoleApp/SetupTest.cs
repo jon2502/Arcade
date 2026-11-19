@@ -5,11 +5,50 @@ namespace Arcade.Test.ConsoleApp;
 public class SetupTest {
     private Deck blackjackdeck;
     private BlackJack game;
+    private Card ace;
+    private Card two;
+    private Card three;
+    private Card queen;
+    private Card five;
+    private Card king;
 
     [SetUp]
     public void SetUp() {
         blackjackdeck = new Deck();
         game = new BlackJack(blackjackdeck);
+
+        ace = new Card {
+            Suit = "♥",
+            Rank = "A",
+            Value = 11,
+        };
+        two = new Card {
+            Suit = "♠",
+            Rank = "2",
+            Value = 2,
+        };
+
+        three = new Card {
+            Suit = "♥",
+            Rank = "3",
+            Value = 3,
+        };
+
+        queen = new Card {
+            Suit = "♠",
+            Rank = "Q",
+            Value = 10,
+        };
+        five = new Card {
+            Suit = "♥",
+            Rank = "5",
+            Value = 5,
+        };
+        king = new Card {
+            Suit = "♠",
+            Rank = "K",
+            Value = 10,
+        };
     }
 
 
@@ -40,28 +79,6 @@ public class SetupTest {
     [Test]
     public void BlackJackSurrenderTest() {
         playersetup();      
-        Card two = new Card {
-            Suit = "♠",
-            Rank = "2",
-            Value = 2,
-        };
-
-        Card three = new Card {
-            Suit = "♥",
-            Rank = "3",
-            Value = 3,
-        };
-
-        Card queen = new Card {
-            Suit = "♠",
-            Rank = "Q",
-            Value = 10,
-        };
-        Card five = new Card {
-            Suit = "♥",
-            Rank = "5",
-            Value = 5,
-        };
 
         game.players[0].Hand[0].Add(two);
         game.players[0].Hand[0].Add(three);
@@ -76,38 +93,6 @@ public class SetupTest {
     [Test]
     public void BlackJackSplitTest() {
         playersetup();
-        Card ace = new Card {
-            Suit = "♥",
-            Rank = "A",
-            Value = 11,
-        };
-        Card two = new Card {
-            Suit = "♠",
-            Rank = "2",
-            Value = 2,
-        };
-
-        Card three = new Card {
-            Suit = "♥",
-            Rank = "3",
-            Value = 3,
-        };
-
-        Card queen = new Card {
-            Suit = "♠",
-            Rank = "Q",
-            Value = 10,
-        };
-        Card five = new Card {
-            Suit = "♥",
-            Rank = "5",
-            Value = 5,
-        };
-        Card king = new Card {
-            Suit = "♠",
-            Rank = "K",
-            Value = 10,
-        };
 
         game.blackjackdeck.deck.Add(ace);
         game.blackjackdeck.deck.Add(two);
@@ -179,17 +164,6 @@ public class SetupTest {
     [Test]
     public void BlackJackDoubleDowntest() {
         playersetup();
-         Card two = new Card {
-            Suit = "♠",
-            Rank = "2",
-            Value = 2,
-        };
-
-        Card queen = new Card {
-            Suit = "♠",
-            Rank = "Q",
-            Value = 10,
-        };
                 
         game.blackjackdeck.deck.Add(queen);
 
@@ -213,7 +187,38 @@ public class SetupTest {
 
         Console.SetIn(new StringReader("y\ny\nn"));
         Program.BlackJackDoubleDown(game);
-
     }
 
+    [Test]
+    public void BlackJackInsuranceNotTriggerdTest() {
+        playersetup();
+        game.blackjackdeck.deck.Add(ace);
+        game.blackjackdeck.deck.Add(two);
+        game.blackjackdeck.deck.Add(three);
+        game.blackjackdeck.deck.Add(five);
+        game.blackjackdeck.deck.Add(five);
+        game.blackjackdeck.deck.Add(five);
+        game.GetStartingHands();
+        Program.BlackJackInsurance(game);
+
+        Assert.AreNotEqual(11,game.dealer.Hand[0][0].Value);
+    }
+
+    [Test]
+    public void BlackJackInsuranceTriggerdTest() {
+        playersetup();
+        game.blackjackdeck.deck.Add(two);
+        game.blackjackdeck.deck.Add(three);
+        game.blackjackdeck.deck.Add(five);
+        game.blackjackdeck.deck.Add(five);
+        game.blackjackdeck.deck.Add(ace);
+        game.blackjackdeck.deck.Add(queen);
+        Console.SetIn(new StringReader("y\ny\n100\n80\n10\nn"));
+
+        game.GetStartingHands();
+        Program.BlackJackInsurance(game);
+
+        Assert.AreEqual(11,game.dealer.Hand[0][0].Value);
+        Assert.AreEqual(10,game.dealer.Hand[0][1].Value);
+    }
 }
